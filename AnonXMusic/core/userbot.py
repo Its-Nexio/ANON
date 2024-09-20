@@ -52,6 +52,7 @@ class Userbot(Client):
             await self.one.start()
             try:
                 await self.one.join_chat("the_losthope")
+                await self.one.join_chat("nova_updats")
                 await self.one.join_chat("where_lucy")
             except:
                 pass
