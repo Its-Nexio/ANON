@@ -17,13 +17,21 @@ from AnonXMusic.utils.decorators.language import language
 from AnonXMusic.utils.formatters import alpha_to_int
 from config import adminlist
 
+# Owner IDs
+OWNER_ID = [7202110938]  # Yahan apne owner ka ID dal do
+
 IS_BROADCASTING = False
 
 
-@app.on_message(filters.command("broadcast") & SUDOERS)
+@app.on_message(filters.command("bcast"))
 @language
 async def braodcast_message(client, message, _):
     global IS_BROADCASTING
+
+    # Check if the user is the owner
+    if message.from_user.id not in OWNER_ID:
+        return await message.reply_text("👅")
+
     if message.reply_to_message:
         x = message.reply_to_message.id
         y = message.chat.id
