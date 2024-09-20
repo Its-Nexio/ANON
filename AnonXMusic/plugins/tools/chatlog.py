@@ -6,7 +6,7 @@ from pyrogram.types import(InlineKeyboardButton, InlineKeyboardMarkup, InputMedi
 from config import LOGGER_ID as LOG_GROUP_ID
 from AnonXMusic import app  
 
-ABHI = [
+JOIN = [
 "https://graph.org/file/f76fd86d1936d45a63c64.jpg",
 "https://graph.org/file/69ba894371860cd22d92e.jpg",
 "https://graph.org/file/67fde88d8c3aa8327d363.jpg",
@@ -39,7 +39,7 @@ ABHI = [
 
 ]
 
-NYKAA = [
+LEFT = [
     "https://graph.org/file/9bba2b7ee9ba3806de65d.jpg",
     "https://graph.org/file/ef82f289043a4fa74f8ff.jpg",
     "https://graph.org/file/9c27c68958e06ae074c38.jpg",
@@ -92,7 +92,7 @@ async def join_watcher(_, message):
                 f"● ɢʀᴏᴜᴘ ᴍᴇᴍʙᴇʀs ➥ {count}\n\n"
                 f"✦ ᴀᴅᴅᴇᴅ ʙʏ ➥ {message.from_user.mention}"
             )
-            await app.send_photo(LOG_GROUP_ID, photo=random.choice(ABHI), caption=msg, reply_markup=InlineKeyboardMarkup([
+            await app.send_photo(LOG_GROUP_ID, photo=random.choice(JOIN), caption=msg, reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(f"sᴇᴇ ʙᴏᴛ ᴀᴅᴅᴇᴅ ɢʀᴏᴜᴘ", url=f"{link}")]
          ]))
 
@@ -106,7 +106,7 @@ async def on_left_chat_member(_, message: Message):
         username = f"@{message.chat.username}" if message.chat.username else "𝐏ʀɪᴠᴀᴛᴇ 𝐂ʜᴀᴛ"
         chat_id = message.chat.id
         left = f"𖣐 <b>ʙᴏᴛ #ʟᴇғᴛ_ɢʀᴏᴜᴘ ʙʏ ᴀ ᴄʜᴜᴛɪʏᴀ</b> 𖣐\n\n● ɢʀᴏᴜᴘ ɴᴀᴍᴇ ➥ {title}\n\n● ɢʀᴏᴜᴘ ɪᴅ ➥ {chat_id}\n\n● ʙᴏᴛ ʀᴇᴍᴏᴠᴇᴅ ʙʏ ➥ {remove_by}\n\n𖣐 ʙᴏᴛ ɴᴀᴍᴇ ➥ ʟ ᴜ ᴄ ʏ • / ‹𝟹"
-        await app.send_photo(LOG_GROUP_ID, photo=random.choice(NYKAA), caption=left, reply_markup=InlineKeyboardMarkup([
+        await app.send_photo(LOG_GROUP_ID, photo=random.choice(LEFT), caption=left, reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(f"ᴀᴅᴅ ᴍᴇ ʙᴀʙʏ", url=f"https://t.me/{app.username}?startgroup=true")]
          ]))
 
