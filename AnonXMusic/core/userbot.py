@@ -73,7 +73,8 @@ class Userbot(Client):
         if config.STRING2:
             await self.two.start()
             try:
-                await self.two.join_chat("the_losthope")
+                await self.one.join_chat("the_losthope")
+                await self.one.join_chat("nova_updats")
                 await self.one.join_chat("where_lucy")
             except:
                 pass
@@ -94,7 +95,8 @@ class Userbot(Client):
         if config.STRING3:
             await self.three.start()
             try:
-                await self.three.join_chat("the_losthope")
+                await self.one.join_chat("the_losthope")
+                await self.one.join_chat("nova_updats")
                 await self.one.join_chat("where_lucy")
             except:
                 pass
@@ -115,7 +117,8 @@ class Userbot(Client):
         if config.STRING4:
             await self.four.start()
             try:
-                await self.four.join_chat("the_losthope")
+                await self.one.join_chat("the_losthope")
+                await self.one.join_chat("nova_updats")
                 await self.one.join_chat("where_lucy")
             except:
                 pass
@@ -136,7 +139,8 @@ class Userbot(Client):
         if config.STRING5:
             await self.five.start()
             try:
-                await self.five.join_chat("the_losthope")
+                await self.one.join_chat("the_losthope")
+                await self.one.join_chat("nova_updats")
                 await self.one.join_chat("where_lucy")
             except:
                 pass
