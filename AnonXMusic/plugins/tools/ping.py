@@ -15,22 +15,22 @@ from config import BANNED_USERS, PING_IMG_URL
 async def ping_com(client, message: Message, _):
     start = datetime.now()
 
-    # Pehle image ke saath reply karo, aur caption me "{0} ɪs ᴘɪɴɢɪɴɢ..."
+    # Pehle image ke saath reply karo
     response = await message.reply_photo(
-        photo=f'\"{PING_IMG_URL}\"',
-        caption="{0} ɪs ᴘɪɴɢɪɴɢ...".format(app.mention),  # Caption updated here
+        photo=PING_IMG_URL,
+        caption="{0} ɪs ᴘɪɴɢɪɴɢ...".format(app.mention),  # App mention will replace {0}
     )
 
     # Ping aur system stats calculate karo
-    pytgping = await Anony.ping()
-    UP, CPU, RAM, DISK = await bot_sys_stats()
-    resp = (datetime.now() - start).microseconds / 1000
+    pytgping = await Anony.ping()  # Checking Py-TGCalls ping
+    UP, CPU, RAM, DISK = await bot_sys_stats()  # Fetch system stats
+    resp = (datetime.now() - start).microseconds / 1000  # Time calculation
 
-    # Image ko delete karke, updated message ke saath edit karo
+    # Image ko delete karo
     await response.delete()
 
-    # Fir message ko stats ke saath update karo
+    # Stats ke saath reply karo
     await message.reply_text(
-        _["ping_2"].format(resp, app.mention, UP, RAM, CPU, DISK, pytgping),
-        reply_markup=supp_markup(_),
+        _["ping_2"].format(resp, app.mention, UP, RAM, CPU, DISK, pytgping),  # Formatting stats
+        reply_markup=supp_markup(_),  # Optional button markup
     )
