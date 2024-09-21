@@ -14,21 +14,21 @@ from config import BANNED_USERS, PING_IMG_URL
 @language
 async def ping_com(client, message: Message, _):
     start = datetime.now()
-    
-    # Pehle image ke saath reply karo
+
+    # Pehle image ke saath reply karo, aur caption ko quotes me bhejo
     response = await message.reply_photo(
         photo=PING_IMG_URL,
-        caption=_["ping_1"].format(app.mention),
+        caption=f'\"{_["ping_1"].format(app.mention)}\"',  # Quotes added around the caption
     )
-    
+
     # Ping aur system stats calculate karo
     pytgping = await Anony.ping()
     UP, CPU, RAM, DISK = await bot_sys_stats()
     resp = (datetime.now() - start).microseconds / 1000
-    
+
     # Image ko delete karke, updated message ke saath edit karo
     await response.delete()
-    
+
     # Fir message ko stats ke saath update karo
     await message.reply_text(
         _["ping_2"].format(resp, app.mention, UP, RAM, CPU, DISK, pytgping),
