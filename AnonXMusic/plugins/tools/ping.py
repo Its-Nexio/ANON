@@ -15,13 +15,18 @@ from config import BANNED_USERS, PING_IMG_URL
 @language
 async def ping_com(client, message: Message, _):
     start = datetime.now()
-    response = await message.reply(
-        text=_["ping_1"].format(app.mention),  # This will now send the text without the image
+    
+    # Send the image as a document instead of a photo
+    response = await message.reply_document(
+        document=PING_IMG_URL,  # This will send the image as a document
+        caption=_["ping_1"].format(app.mention),  # Add the caption as usual
     )
+    
     pytgping = await Anony.ping()
     UP, CPU, RAM, DISK = await bot_sys_stats()
     resp = (datetime.now() - start).microseconds / 1000
-    await response.edit_text(
+
+    await response.edit_caption(
         _["ping_2"].format(resp, app.mention, UP, RAM, CPU, DISK, pytgping),
         reply_markup=supp_markup(_),
     )
