@@ -18,41 +18,50 @@ from AnonXMusic.utils.decorators.language import language, languageCB
 from AnonXMusic.utils.inline.stats import back_stats_buttons, stats_buttons
 from config import BANNED_USERS
 
+# Stats command (Global stats)
 @app.on_message(filters.command(["stats", "gstats"]) & filters.group & ~BANNED_USERS)
 @language
 async def stats_global(client, message: Message, _):
     upl = stats_buttons(_, True if message.from_user.id in SUDOERS else False)
     
-    # Pehle image bhejni bina caption ke, taaki "quote" style mein dikhe
-    await message.reply_photo(photo=config.STATS_IMG_URL)
+    # Image ko quote format mein bhejna bina kisi caption ke
+    await message.reply_photo(
+        photo=config.STATS_IMG_URL
+    )
     
-    # Phir text aur buttons bhejne hain alag message ke roop mein
+    # Phir text aur buttons ek alag message mein bhejna
     await message.reply_text(
-        caption=_["gstats_2"].format(app.mention),
-        reply_markup=upl,
+        _["gstats_2"].format(app.mention),
+        reply_markup=upl
     )
 
+# Callback for stats back button
 @app.on_callback_query(filters.regex("stats_back") & ~BANNED_USERS)
 @languageCB
 async def home_stats(client, CallbackQuery, _):
     upl = stats_buttons(_, True if CallbackQuery.from_user.id in SUDOERS else False)
     
-    # Pehle image bhejni bina caption ke
-    await CallbackQuery.message.reply_photo(photo=config.STATS_IMG_URL)
+    # Pehle image bina caption ke bhejni hai
+    await CallbackQuery.message.reply_photo(
+        photo=config.STATS_IMG_URL
+    )
     
     # Phir text aur buttons bhejne hain
     await CallbackQuery.message.reply_text(
         text=_["gstats_2"].format(app.mention),
-        reply_markup=upl,
+        reply_markup=upl
     )
 
+# Callback for overall stats button
 @app.on_callback_query(filters.regex("TopOverall") & ~BANNED_USERS)
 @languageCB
 async def overall_stats(client, CallbackQuery, _):
     await CallbackQuery.answer()
-    upl = back_stats_buttons(_)
     
-    # Pehle image bina caption ke bhejni hai
+    # Back button ke liye options
+    upl = back_stats_buttons(_)
+
+    # Pehle image bhejni bina caption ke
     await CallbackQuery.message.reply_photo(photo=config.STATS_IMG_URL)
 
     # Phir text aur buttons bhejne hain
@@ -74,6 +83,7 @@ async def overall_stats(client, CallbackQuery, _):
         reply_markup=upl
     )
 
+# Sudo bot stats callback
 @app.on_callback_query(filters.regex("bot_stats_sudo"))
 @languageCB
 async def bot_stats(client, CallbackQuery, _):
@@ -82,21 +92,21 @@ async def bot_stats(client, CallbackQuery, _):
     
     upl = back_stats_buttons(_)
 
-    # Pehle image bina caption ke bhejni hai
+    # Image bhejni bina caption ke
     await CallbackQuery.message.reply_photo(photo=config.STATS_IMG_URL)
 
-    # Phir stats ka text aur buttons bhejne hain
+    # Phir text aur buttons ke saath stats bhejne hain
     p_core = psutil.cpu_count(logical=False)
     t_core = psutil.cpu_count(logical=True)
-    ram = str(round(psutil.virtual_memory().total / (1024.0**3))) + " ɢʙ"
+    ram = str(round(psutil.virtual_memory().total / (1024.0**3))) + " GB"
     try:
         cpu_freq = psutil.cpu_freq().current
         if cpu_freq >= 1000:
-            cpu_freq = f"{round(cpu_freq / 1000, 2)}ɢʜᴢ"
+            cpu_freq = f"{round(cpu_freq / 1000, 2)} GHz"
         else:
-            cpu_freq = f"{round(cpu_freq, 2)}ᴍʜᴢ"
+            cpu_freq = f"{round(cpu_freq, 2)} MHz"
     except:
-        cpu_freq = "ғᴀɪʟᴇᴅ ᴛᴏ ғᴇᴛᴄʜ"
+        cpu_freq = "Failed to fetch"
     
     hdd = psutil.disk_usage("/")
     total = hdd.total / (1024.0**3)
@@ -107,6 +117,7 @@ async def bot_stats(client, CallbackQuery, _):
     storage = call["storageSize"] / 1024
     served_chats = len(await get_served_chats())
     served_users = len(await get_served_users())
+    
     text = _["gstats_5"].format(
         app.mention,
         len(ALL_MODULES),
