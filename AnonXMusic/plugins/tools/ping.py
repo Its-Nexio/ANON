@@ -15,10 +15,10 @@ from config import BANNED_USERS, PING_IMG_URL
 async def ping_com(client, message: Message, _):
     start = datetime.now()
 
-    # Pehle image ke saath reply karo, aur PING_IMG_URL ko quotes me bhejo
+    # Pehle image ke saath reply karo, aur caption me "{0} ɪs ᴘɪɴɢɪɴɢ..."
     response = await message.reply_photo(
-        photo=f'\"{PING_IMG_URL}\"',  # Quotes added around PING_IMG_URL
-        caption=_["ping_1"].format(app.mention),
+        photo=f'\"{PING_IMG_URL}\"',
+        caption="{0} ɪs ᴘɪɴɢɪɴɢ...".format(app.mention),  # Caption updated here
     )
 
     # Ping aur system stats calculate karo
