@@ -18,38 +18,44 @@ from AnonXMusic.utils.decorators.language import language, languageCB
 from AnonXMusic.utils.inline.stats import back_stats_buttons, stats_buttons
 from config import BANNED_USERS
 
-
 @app.on_message(filters.command(["stats", "gstats"]) & filters.group & ~BANNED_USERS)
 @language
 async def stats_global(client, message: Message, _):
     upl = stats_buttons(_, True if message.from_user.id in SUDOERS else False)
-    await message.reply_photo(
-        photo=config.STATS_IMG_URL,
+    
+    # Pehle image bhejni bina caption ke, taaki "quote" style mein dikhe
+    await message.reply_photo(photo=config.STATS_IMG_URL)
+    
+    # Phir text aur buttons bhejne hain alag message ke roop mein
+    await message.reply_text(
         caption=_["gstats_2"].format(app.mention),
         reply_markup=upl,
     )
-
 
 @app.on_callback_query(filters.regex("stats_back") & ~BANNED_USERS)
 @languageCB
 async def home_stats(client, CallbackQuery, _):
     upl = stats_buttons(_, True if CallbackQuery.from_user.id in SUDOERS else False)
-    await CallbackQuery.edit_message_text(
+    
+    # Pehle image bhejni bina caption ke
+    await CallbackQuery.message.reply_photo(photo=config.STATS_IMG_URL)
+    
+    # Phir text aur buttons bhejne hain
+    await CallbackQuery.message.reply_text(
         text=_["gstats_2"].format(app.mention),
         reply_markup=upl,
     )
-
 
 @app.on_callback_query(filters.regex("TopOverall") & ~BANNED_USERS)
 @languageCB
 async def overall_stats(client, CallbackQuery, _):
     await CallbackQuery.answer()
     upl = back_stats_buttons(_)
-    try:
-        await CallbackQuery.answer()
-    except:
-        pass
-    await CallbackQuery.edit_message_text(_["gstats_1"].format(app.mention))
+    
+    # Pehle image bina caption ke bhejni hai
+    await CallbackQuery.message.reply_photo(photo=config.STATS_IMG_URL)
+
+    # Phir text aur buttons bhejne hain
     served_chats = len(await get_served_chats())
     served_users = len(await get_served_users())
     text = _["gstats_3"].format(
@@ -63,26 +69,23 @@ async def overall_stats(client, CallbackQuery, _):
         config.AUTO_LEAVING_ASSISTANT,
         config.DURATION_LIMIT_MIN,
     )
-    med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)
-    try:
-        await CallbackQuery.edit_message_media(media=med, reply_markup=upl)
-    except MessageIdInvalid:
-        await CallbackQuery.message.reply_photo(
-            photo=config.STATS_IMG_URL, caption=text, reply_markup=upl
-        )
-
+    await CallbackQuery.message.reply_text(
+        text,
+        reply_markup=upl
+    )
 
 @app.on_callback_query(filters.regex("bot_stats_sudo"))
 @languageCB
 async def bot_stats(client, CallbackQuery, _):
     if CallbackQuery.from_user.id not in SUDOERS:
         return await CallbackQuery.answer(_["gstats_4"], show_alert=True)
+    
     upl = back_stats_buttons(_)
-    try:
-        await CallbackQuery.answer()
-    except:
-        pass
-    await CallbackQuery.edit_message_text(_["gstats_1"].format(app.mention))
+
+    # Pehle image bina caption ke bhejni hai
+    await CallbackQuery.message.reply_photo(photo=config.STATS_IMG_URL)
+
+    # Phir stats ka text aur buttons bhejne hain
     p_core = psutil.cpu_count(logical=False)
     t_core = psutil.cpu_count(logical=True)
     ram = str(round(psutil.virtual_memory().total / (1024.0**3))) + " ɢʙ"
@@ -94,6 +97,7 @@ async def bot_stats(client, CallbackQuery, _):
             cpu_freq = f"{round(cpu_freq, 2)}ᴍʜᴢ"
     except:
         cpu_freq = "ғᴀɪʟᴇᴅ ᴛᴏ ғᴇᴛᴄʜ"
+    
     hdd = psutil.disk_usage("/")
     total = hdd.total / (1024.0**3)
     used = hdd.used / (1024.0**3)
@@ -126,10 +130,7 @@ async def bot_stats(client, CallbackQuery, _):
         call["collections"],
         call["objects"],
     )
-    med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)
-    try:
-        await CallbackQuery.edit_message_media(media=med, reply_markup=upl)
-    except MessageIdInvalid:
-        await CallbackQuery.message.reply_photo(
-            photo=config.STATS_IMG_URL, caption=text, reply_markup=upl
-        )
+    await CallbackQuery.message.reply_text(
+        text,
+        reply_markup=upl
+    )
