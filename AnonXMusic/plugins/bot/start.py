@@ -35,8 +35,11 @@ async def start_pm(client, message: Message, _):
             await message.reply_sticker(
                 "CAACAgUAAxkBAAEMwtNm2KHnteRSdOe3IGLVkYJNcGvcmwACzQsAAvNjMVaDNDEvlfxWZzYE"
             )
+            await message.reply_photo(
+                photo=random.choice(config.START_IMG_URL),  # Send Image First
+            )
             return await message.reply_photo(
-                
+                photo=random.choice(config.START_IMG_URL),
                 caption=_["help_1"].format(config.SUPPORT_CHAT),
                 reply_markup=keyboard,
             )
