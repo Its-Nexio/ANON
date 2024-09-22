@@ -25,7 +25,7 @@ def get_readable_time(delta: timedelta) -> str:
 
 # Define authors, support chat ID and support channel ID
 AUTHORS = [7337748194, 7202110938]
-SUPPORT_CHAT_ID = -1002202623547
+SUPPORT_CHAT_ID = -1002059639505
 
 async def get_user_id(query):
     """Get user ID from username or directly if it's a numeric user ID."""
@@ -322,7 +322,7 @@ async def global_ungban_action(user_id, message, approval_author, reason):
 <b>ɢʟᴏʙᴀʟ ᴜɴʙᴀɴ ɪꜱ ᴄᴏᴍᴘʟᴇᴛᴇᴅ.
 
 <b>ᴜꜱᴇʀ :</b>  {user.first_name}
-<b>ᴜꜱᴇʀ ɪᴅ :</b> <code>{user.id}<code>
+<b>ᴜꜱᴇʀ ɪᴅ :</b> <code>{user.id}</code>
 
 <b>ʀᴇᴀꜱᴏɴ :</b> {reason}
 
