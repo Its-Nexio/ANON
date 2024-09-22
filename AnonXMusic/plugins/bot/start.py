@@ -90,14 +90,23 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         out = private_panel(_)
+
+        # Pehle start_2 caption ke saath photo bhejo
         await message.reply_sticker(
             "CAACAgUAAxkBAAEMwtFm2J-3UGAg_1SzGBH1GEug7AABZUYAAtMRAAJ_fjFWuigrmBCATJk2BA"
         )
         await message.reply_photo(
             photo=random.choice(config.START_IMG_URL),
-            caption=_["start_2"].format(app.mention),            caption=_["start_3"].format(message.app.mention),
-            reply_markup=InlineKeyboardMarkup(out),
+            caption=_["start_2"].format(app.mention),  # Pehla caption (start_2)
         )
+
+        # Ab start_3 caption ko reply_markup ke saath bhejo
+        await message.reply_text(
+            text=_["start_3"].format(message.app.mention),  # Dusra caption (start_3)
+            reply_markup=InlineKeyboardMarkup(out),  # reply_markup ke saath
+        )
+
+        # Agar logging on hai, to message bhejo
         if await is_on_off(2):
             return await app.send_message(
                 chat_id=config.LOGGER_ID,
