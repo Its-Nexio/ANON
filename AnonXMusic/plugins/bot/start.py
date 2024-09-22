@@ -97,12 +97,12 @@ async def start_pm(client, message: Message, _):
         )
         await message.reply_photo(
             photo=random.choice(config.START_IMG_URL),
-            caption=_["start_2"].format(app.mention),  # Pehla caption (start_2)
+            caption=_["start_2"].format(message.from_user.mention),  # Pehla caption (start_2)
         )
 
         # Ab start_3 caption ko reply_markup ke saath bhejo
         await message.reply_text(
-            text=_["start_3"].format(message.app.mention),  # Dusra caption (start_3)
+            text=_["start_3"].format(app.mention),  # Dusra caption (start_3)
             reply_markup=InlineKeyboardMarkup(out),  # reply_markup ke saath
         )
 
