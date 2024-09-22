@@ -35,10 +35,14 @@ async def start_pm(client, message: Message, _):
             await message.reply_sticker(
                 "CAACAgUAAxkBAAEMwtNm2KHnteRSdOe3IGLVkYJNcGvcmwACzQsAAvNjMVaDNDEvlfxWZzYE"
             )
-            return await message.reply(
+            await message.reply_photo(
+                photo=random.choice(config.START_IMG_URL),  # Send Image First
+            )
+            return await message.reply_photo(
+                photo=random.choice(config.START_IMG_URL),
                 caption=_["help_1"].format(config.SUPPORT_CHAT),
                 reply_markup=keyboard,
-            )  # Removed the photo here
+            )
         if name[0:3] == "sud":
             await sudoers_list(client=client, message=message, _=_)
             if await is_on_off(2):
@@ -73,9 +77,10 @@ async def start_pm(client, message: Message, _):
                 ]
             )
             await m.delete()
-            await app.send_message(
+            await app.send_photo(
                 chat_id=message.chat.id,
-                text=searched_text,  # Changed to text instead of photo
+                photo=thumbnail,
+                caption=searched_text,
                 reply_markup=key,
             )
             if await is_on_off(2):
@@ -89,7 +94,10 @@ async def start_pm(client, message: Message, _):
             "CAACAgUAAxkBAAEMwtFm2J-3UGAg_1SzGBH1GEug7AABZUYAAtMRAAJ_fjFWuigrmBCATJk2BA"
         )
         await message.reply_photo(
-            photo=random.choice(config.START_IMG_URL),  # Only this image will be sent
+            photo=random.choice(config.START_IMG_URL),  # First image block separately
+        )
+        await message.reply_photo(
+            photo=random.choice(config.START_IMG_URL),
             caption=_["start_2"].format(message.from_user.mention, app.mention),
             reply_markup=InlineKeyboardMarkup(out),
         )
