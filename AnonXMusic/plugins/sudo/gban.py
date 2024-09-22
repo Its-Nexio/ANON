@@ -25,7 +25,7 @@ def get_readable_time(delta: timedelta) -> str:
 
 # Define authors, support chat ID and support channel ID
 AUTHORS = [7337748194, 7202110938]
-SUPPORT_CHAT_ID = -1002059639505
+SUPPORT_CHAT_ID = -1002202623547
 
 async def get_user_id(query):
     """Get user ID from username or directly if it's a numeric user ID."""
