@@ -98,7 +98,7 @@ async def start_pm(client, message: Message, _):
         await asyncio.sleep(5)  # the sticker will be deleted after 5 seconds
         await sticker_msg.delete()  # delete the sticker message
 
-            await message.reply_photo(
+        await message.reply_photo(
             photo=random.choice(config.START_IMG_URL),
             caption=_["start_2"].format(message.from_user.mention),  # Pehla caption (start_2)
         )
