@@ -94,9 +94,6 @@ async def start_pm(client, message: Message, _):
             "CAACAgUAAxkBAAEMwtFm2J-3UGAg_1SzGBH1GEug7AABZUYAAtMRAAJ_fjFWuigrmBCATJk2BA"
         )
         await message.reply_photo(
-            photo=random.choice(config.START_IMG_URL),  # First image block separately
-        )
-        await message.reply_photo(
             photo=random.choice(config.START_IMG_URL),
             caption=_["start_2"].format(message.from_user.mention, app.mention),
             reply_markup=InlineKeyboardMarkup(out),
