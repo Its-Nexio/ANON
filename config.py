@@ -77,6 +77,13 @@ autoclean = []
 confirmer = {}
 
 
+STICKERS = [
+    "CAACAgUAAxkBAAEMwtNm2KHnteRSdOe3IGLVkYJNcGvcmwACzQsAAvNjMVaDNDEvlfxWZzYE",
+    "CAACAgUAAxkBAAEMwtFm2J-3UGAg_1SzGBH1GEug7AABZUYAAtMRAAJ_fjFWuigrmBCATJk2BA",
+    "CAACAgUAAxkBAAEMFZFm2J-3FdguwYUJFGHSFHEjkHaRskkAAshXTgA"
+]
+
+
 START_IMG_URL = ["https://telegra.ph/file/8fb11f38033d3195c9c8c.jpg",
                  "https://telegra.ph/file/106167c80a3fc3ab9f1e8.jpg",
                  "https://telegra.ph/file/89070543c0f7f2e51118d.jpg",
