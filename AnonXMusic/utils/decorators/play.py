@@ -1,5 +1,4 @@
 import asyncio
-import logging
 
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import (
@@ -27,8 +26,6 @@ from strings import get_string
 
 links = {}
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
 
 def PlayWrapper(command):
     async def wrapper(client, message):
@@ -119,30 +116,19 @@ def PlayWrapper(command):
         if not await is_active_chat(chat_id):
             userbot = await get_assistant(chat_id)
             try:
-                get = await app.get_chat_member(chat_id, int(userbot.id))
-            except:
-                if userbot.username:
-                    get = await app.get_chat_member(chat_id, userbot.username)
-                else:
-                    return await message.reply_text("Userbot does not have a valid username.")
-            except ChatAdminRequired:
-                return await message.reply_text(_["call_1"])
-            except Exception as e:
-                logging.error(f"Error getting chat member: {e}")
-                return await message.reply_text(_["call_3"].format(app.mention, type(e).__name__))
-
-            if (
-                get.status == ChatMemberStatus.BANNED
-                or get.status == ChatMemberStatus.RESTRICTED
-            ):
-                return await message.reply_text(
-                    _["call_2"].format(
-                        app.mention, userbot.id, userbot.name, userbot.username
+                try:
+                    get = await app.get_chat_member(chat_id, userbot.id)
+                except ChatAdminRequired:
+                    return await message.reply_text(_["call_1"])
+                if (
+                    get.status == ChatMemberStatus.BANNED
+                    or get.status == ChatMemberStatus.RESTRICTED
+                ):
+                    return await message.reply_text(
+                        _["call_2"].format(
+                            app.mention, userbot.id, userbot.name, userbot.username
+                        )
                     )
-                )
-
-            try:
-                get = await app.get_chat_member(chat_id, int(userbot.id))
             except UserNotParticipant:
                 if chat_id in links:
                     invitelink = links[chat_id]
