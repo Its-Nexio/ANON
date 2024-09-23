@@ -36,7 +36,7 @@ async def start_pm(client, message: Message, _):
             sticker_msg = await message.reply_sticker(
                 "CAACAgUAAxkBAAEMwtNm2KHnteRSdOe3IGLVkYJNcGvcmwACzQsAAvNjMVaDNDEvlfxWZzYE"
             )
-            await asyncio.sleep(2)  # the sticker will be deleted after 2 seconds
+            await asyncio.sleep(0.5)  # the sticker will be deleted after 0.5 seconds
             await sticker_msg.delete()  # sticker deleted
 
             return await message.reply_photo(
@@ -96,7 +96,7 @@ async def start_pm(client, message: Message, _):
         sticker_msg = await message.reply_sticker(
             "CAACAgUAAxkBAAEMwtFm2J-3UGAg_1SzGBH1GEug7AABZUYAAtMRAAJ_fjFWuigrmBCATJk2BA"
         )
-        await asyncio.sleep(2)  # the sticker will be deleted after 2 seconds
+        await asyncio.sleep(0.5)  # the sticker will be deleted after 0.5 seconds
         await sticker_msg.delete()  # delete the sticker message
 
         await message.reply_photo(
