@@ -119,13 +119,12 @@ def PlayWrapper(command):
         if not await is_active_chat(chat_id):
             userbot = await get_assistant(chat_id)
             try:
-                try:
-                    get = await app.get_chat_member(chat_id, int(userbot.id))
-                except:
-                    if userbot.username:
-                        get = await app.get_chat_member(chat_id, userbot.username)
-                    else:
-                        return await message.reply_text("Userbot does not have a valid username.")
+                get = await app.get_chat_member(chat_id, int(userbot.id))
+            except:
+                if userbot.username:
+                    get = await app.get_chat_member(chat_id, userbot.username)
+                else:
+                    return await message.reply_text("Userbot does not have a valid username.")
             except ChatAdminRequired:
                 return await message.reply_text(_["call_1"])
             except Exception as e:
@@ -141,6 +140,9 @@ def PlayWrapper(command):
                         app.mention, userbot.id, userbot.name, userbot.username
                     )
                 )
+
+            try:
+                get = await app.get_chat_member(chat_id, int(userbot.id))
             except UserNotParticipant:
                 if chat_id in links:
                     invitelink = links[chat_id]
