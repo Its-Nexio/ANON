@@ -34,7 +34,7 @@ async def start_pm(client, message: Message, _):
         if name[0:4] == "help":
             keyboard = help_pannel(_)
             sticker_msg = await message.reply_sticker(
-                random.choice(STICKERS)  # Random sticker from the list
+                sticker=random.choice(config.STICKERS),  # Random sticker from the list
             )
             await asyncio.sleep(0.5)  # the sticker will be deleted after 0.5 seconds
             await sticker_msg.delete()  # sticker deleted
