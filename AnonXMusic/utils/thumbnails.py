@@ -21,7 +21,7 @@ async def get_thumb(videoid, user_id, bot_name):
                 draw = ImageDraw.Draw(img)
                 font = ImageFont.truetype("arial.ttf", 20)  # Set the font and size as per your requirement.
                 text_width, text_height = draw.textsize(bot_name, font=font)
-                draw.text((img.width - text_width - 10, 10), bot_name, font=font, fill="white")
+                draw.text((img.width - text_width - 10, 10), bot_name, font=font, fill="NOVA MUSIC")
 
                 img.save(save_path)
                 return save_path
