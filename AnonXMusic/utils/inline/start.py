@@ -27,10 +27,10 @@ def private_panel(_):
         ],
         [InlineKeyboardButton(text=_["S_B_4"], callback_data="settings_back_helper")],
         [
-          InlineKeyboardButton(text="ᴏᴡɴᴇʀ", url=f"https://t.me/miss_angel52),
+            InlineKeyboardButton(text="ᴏᴡɴᴇʀ", url=f"https://t.me/miss_angel52"),  # Error Fixed
             InlineKeyboardButton(text=_["S_B_2"], url=config.SUPPORT_CHAT),
         ],
         [
             InlineKeyboardButton(text="ᴀʙᴏᴜᴛ", url=f"https://t.me/where_lucy")],
-        ]
+    ]
     return buttons
